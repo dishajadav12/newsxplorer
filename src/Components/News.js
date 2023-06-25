@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
-import { NEWS_API } from './api';
 import Spinner from './spinner/Spinner';
+import PropTypes from 'prop-types'
 
 export default class News extends Component {
 
+    static defaultProps = {
+    country:'in',
+    pagesize: 12,
+    category: 'general'
+    }
+    static propTypes = {
+    country: PropTypes.string,
+    pagesize: PropTypes.number,
+    category: PropTypes.string
+    }
     constructor(){
         super();
         console.log("hii");
@@ -16,7 +26,7 @@ export default class News extends Component {
         }
     }
     async componentDidMount(){
-        let url = NEWS_API+ "&page=1";
+        let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=249b51477aa64763b616f3b6f48324c6&pageSize=${this.props.pageSize}` ;
         this.setState({loading: true});
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -31,7 +41,7 @@ export default class News extends Component {
     handlePrevClick = async () => {
       const { page } = this.state;
       const prevPage = page - 1;
-      let url = NEWS_API + `&page=${prevPage}`;
+      let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=249b51477aa64763b616f3b6f48324c6&pageSize=${this.props.pageSize}&page=${prevPage}`;
       this.setState({loading: true});
       let data = await fetch(url);
       let parsedData = await data.json();
@@ -48,7 +58,7 @@ export default class News extends Component {
       const { page, totalResults } = this.state;
       const nextPage = page + 1;
       if (!(nextPage > Math.ceil(totalResults / 12))) {
-      let url = NEWS_API + `&page=${nextPage}`;
+      let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=249b51477aa64763b616f3b6f48324c6&pageSize=${this.props.pageSize}&page=${nextPage}`;
       this.setState({loading: true});
       let data = await fetch(url);
       let parsedData = await data.json();      
@@ -78,7 +88,7 @@ export default class News extends Component {
           <div className="button-container">
           <div className="d-flex justify-content-between">
             <button disabled={this.state.page<=1} type='button' className='btn btn-dark' onClick={this.handlePrevClick}>&larr; Previous</button>
-            <button type='button' disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / 12)} className='btn btn-dark' onClick={this.handleNextClick}> Next &rarr;</button>
+            <button type='button' disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)} className='btn btn-dark' onClick={this.handleNextClick}> Next &rarr;</button>
           </div>
           </div>
             
