@@ -83,7 +83,7 @@ export default class News extends Component {
         <div className="row my-3" >
          {!this.state.loading && this.state.articles.map((element)=>{
             return <div className="col-md-3" key={element.url} >
-            <NewsItem  title={element.title ?element.title.slice(0,50):""} description={element.description?element.description.slice(0,88):""} imageUrl={element.urlToImage} newsUrl={element.url}/>
+            <NewsItem  title={element.title ?element.title.slice(0,50):""} description={element.description?element.description.slice(0,88):""} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name}/>
         </div> })}
           <div className="button-container">
           <div className="d-flex justify-content-between">
