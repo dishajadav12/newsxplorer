@@ -22,54 +22,37 @@ export default class News extends Component {
            articles: [],
            loading: false,
            page:1,
-           totalResults: 0
         }
     }
-    async componentDidMount(){
-        let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=249b51477aa64763b616f3b6f48324c6&pageSize=${this.props.pageSize}` ;
-        this.setState({loading: true});
-        let data = await fetch(url);
-        let parsedData = await data.json();
-        console.log(parsedData);
-        this.setState({
-          loading: false,
-          articles: parsedData.articles,
-          totalResults: parsedData.totalResults,
-          
-        })
-    }
-    handlePrevClick = async () => {
-      const { page } = this.state;
-      const prevPage = page - 1;
-      let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=249b51477aa64763b616f3b6f48324c6&pageSize=${this.props.pageSize}&page=${prevPage}`;
+
+    async updateNews(){
+      let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=249b51477aa64763b616f3b6f48324c6&page=${this.state.page}&pageSize=${this.props.pageSize}` ;
       this.setState({loading: true});
       let data = await fetch(url);
       let parsedData = await data.json();
       console.log(parsedData);
       this.setState({
-        page: prevPage,
+        loading: false,
         articles: parsedData.articles,
-        loading: false
+        totalResults: parsedData.totalResults,
+        
+      })
+    }
 
-      });
+    async componentDidMount(){
+      this.updateNews();
     }
-    
     handleNextClick = async () => {
-      const { page, totalResults } = this.state;
-      const nextPage = page + 1;
-      if (!(nextPage > Math.ceil(totalResults / 12))) {
-      let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=249b51477aa64763b616f3b6f48324c6&pageSize=${this.props.pageSize}&page=${nextPage}`;
-      this.setState({loading: true});
-      let data = await fetch(url);
-      let parsedData = await data.json();      
-      this.setState({
-        page: nextPage,
-        articles: parsedData.articles,
-        loading: false
-      });
-       
-      }
+      this.setState({page: this.state.page + 1});
+      this.updateNews();
+
     }
+    handlePrevClick = async () => {
+      this.setState({page: this.state.page - 1});
+      this.updateNews();
+    }
+
+
     
     
       
