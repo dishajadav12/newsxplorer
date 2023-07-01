@@ -4,3 +4,48 @@ body{
 .start-100{
   left:90% !important;
 }
+.navbar{
+  background-color: white;
+  padding-left: 6.5%;
+  border-bottom: 1px solid #f76f71 ;
+  height:60px;
+
+}
+.navbar-nav{
+  margin-top: -10px;
+}
+.nav-link{
+  color: #8c8c8c;
+  margin-top: 20px;
+  height: 50px;
+}
+.nav-link:active{
+  color: #B31312;
+
+}
+.nav-link::after{
+  color: black;
+  font-weight:600 !important;
+}
+.active{
+  border-bottom: 3px solid #B31312 ;
+}
+.navbar-nav{
+  margin-left: 2%;
+}
+.card{
+  -webkit-box-shadow: -4px 6px 10px -3px rgba(138,138,138,0.7);
+  -moz-box-shadow: -4px 6px 10px -3px rgba(138,138,138,0.7);
+   box-shadow: -4px 6px 10px -3px rgba(138,138,138,0.7);
+}
+.text{
+  color: #8c8c8c !important;
+  font-size: 13px;
+}
+.navbar-brand-logo{
+  height:50px;
+}
+.header{
+  margin-left: 35%;
+  width: 450px;
+}

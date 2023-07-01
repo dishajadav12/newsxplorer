@@ -59,7 +59,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
     return (
     <>
       <div className='conmtainer my-3'>
-        <h2 className='text-center' style={{marginTop:"60px"}}>NewsXplorer - Top {capitalize(props.category)} Headlines </h2>
+        <div className="header" style={{marginTop:"20px"}}>
+          <h2 className='text-center'>Top {capitalize(props.category)} Headlines </h2>
+        </div>
         {loading && <Spinner/>}
         <InfiniteScroll
           dataLength={articles.length}
@@ -70,12 +72,12 @@ import InfiniteScroll from 'react-infinite-scroll-component';
           <div className="container">
         <div className="row my-3" >
          {articles.map((element)=>{
-            return <div className="col-md-3" key={element.url} >
+            return <div className="col-sm-6 col-md-3" key={element.url} >
             <NewsItem  title={element.title ?element.title.slice(0,50):""}
              description={element.description?element.description.slice(0,88):""} 
              imageUrl={element.urlToImage} newsUrl={element.url} 
              author={element.author} date={element.publishedAt} 
-             source={element.source.name}/>
+             source={element.source.name} category={props.category}/>
             </div> })}  
             </div>  
         </div>
